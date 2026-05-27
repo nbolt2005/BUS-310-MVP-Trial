@@ -18,9 +18,9 @@ Open http://localhost:5173. Header badge: **Local demo mode**. Morro Bay + Seren
    - `supabase/migrations/001_trips_mvp.sql`
    - `supabase/migrations/002_omw_schema.sql`
    - `supabase/migrations/004_analytics_event_types.sql`
-3. Copy `.env.example` → `.env.local` (do not commit):
-   - `VITE_SUPABASE_URL` — Project Settings → API → Project URL
-   - `VITE_SUPABASE_ANON_KEY` — anon public key
+3. Copy `.env.example` → `.env.local` (do not commit), or edit the existing `.env.local`:
+   - `VITE_SUPABASE_URL` — `https://jtsncizjdewphjeealox.supabase.co`
+   - `VITE_SUPABASE_ANON_KEY` — Supabase → **Project Settings → API** → **anon** `public` key (paste into `.env.local`)
 4. Restart: `npm run dev`
 5. Badge should show **Supabase connected** (green).
 
@@ -75,6 +75,18 @@ Migration `002` seeds Morro Bay (current week) and Serenity Swings.
 **Permissions** (already in workflow): `contents: read`, `pages: write`, `id-token: write`.
 
 Local production build uses `.env.production` (`VITE_BASE_PATH=/BUS-310-MVP-Trial/`). Rename the repo? CI picks up the new name automatically.
+
+### Supabase on GitHub Pages (production)
+
+The deploy workflow passes Supabase env at build time. In the GitHub repo:
+
+1. **Settings → Secrets and variables → Actions → New repository secret**
+2. Add:
+   - `VITE_SUPABASE_URL` = `https://jtsncizjdewphjeealox.supabase.co`
+   - `VITE_SUPABASE_ANON_KEY` = your anon public key (same as local)
+3. Re-run **Deploy to GitHub Pages** or push to `main`.
+
+Without these secrets, the live site stays in **local demo mode** (browser-only data).
 
 ## MVP Analytics (public)
 
