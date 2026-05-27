@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SloCampaignSimulation } from "../components/SloCampaignSimulation";
+import { MetaAdRunSimulation } from "../components/MetaAdRunSimulation";
 import { getMvpAnalytics, getDataModeLabel, type MvpAnalytics } from "../lib/analytics";
 import { listTrips } from "../lib/trips";
 
@@ -161,6 +162,7 @@ export function MvpAnalyticsPage() {
           </section>
 
           <SloCampaignSimulation />
+          <MetaAdRunSimulation />
         </>
       )}
     </div>

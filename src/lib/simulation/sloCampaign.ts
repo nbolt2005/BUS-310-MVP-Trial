@@ -205,14 +205,15 @@ export function runSloCampaignSimulation(seed = 3102026): SloCampaignResult {
   // Reconcile bottom-of-funnel from 7-day totals (per-day rounding zeros out saves on low traffic).
   const campaignFunnel = applyFunnel(landingTarget, rng);
   const detailTotal = sumDays("tripDetailViews");
-  const reconcileKeys: (keyof SloDayMetrics)[] = [
+  type SloFunnelDayKey = "saves" | "shares" | "newsletterSignups" | "paySliderSubmits";
+  const reconcileKeys: SloFunnelDayKey[] = [
     "saves",
     "shares",
     "newsletterSignups",
     "paySliderSubmits",
   ];
   for (const key of reconcileKeys) {
-    const target = campaignFunnel[key as keyof typeof campaignFunnel] as number;
+    const target = campaignFunnel[key];
     const current = sumDays(key);
     let delta = target - current;
     if (delta === 0) continue;
