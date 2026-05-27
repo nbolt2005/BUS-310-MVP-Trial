@@ -66,13 +66,13 @@ Migration `002` seeds Morro Bay (current week) and Serenity Swings.
 **Live URL (after deploy):** `https://nbolt2005.github.io/BUS-310-MVP-Trial/`
 
 1. Push to `main` on GitHub.
-2. Repo **Settings → Pages → Build and deployment → Source:** **GitHub Actions**.
-3. Workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) runs on every push to `main` / `master`:
+2. Repo **Settings → Pages → Build and deployment → Source:** **Deploy from a branch**.
+3. **Branch:** `gh-pages` · **Folder:** `/ (root)`  
+   (The workflow builds the app and pushes the `dist/` folder to `gh-pages` — do **not** use `main` as the Pages branch or the site will be blank.)
+4. Workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) on every push to `main`:
    - Sets `VITE_BASE_PATH=/<repo-name>/`
-   - `npm run build` → uploads `dist/` (includes `404.html` for React Router)
-   - Deploys via `actions/deploy-pages@v4`
-
-**Permissions** (already in workflow): `contents: read`, `pages: write`, `id-token: write`.
+   - `npm run build` → production `dist/` (includes `404.html` for React Router)
+   - Publishes `dist/` to the `gh-pages` branch
 
 Local production build uses `.env.production` (`VITE_BASE_PATH=/BUS-310-MVP-Trial/`). Rename the repo? CI picks up the new name automatically.
 
