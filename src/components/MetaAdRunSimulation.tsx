@@ -23,6 +23,8 @@ type SimRun = {
 const BUDGET_USD = 150;
 const DURATION_DAYS = 10;
 const AUDIENCE_POOL = 1000;
+const PAY_SLIDER_POPUP_SUBMISSIONS = 2;
+const PAY_SLIDER_POPUP_AVERAGE = 10.5;
 
 const RUNS: SimRun[] = [
   {
@@ -113,6 +115,7 @@ export function MetaAdRunSimulation() {
   const cutRun = RUNS.reduce((worst, run) =>
     run.costPerSignup > worst.costPerSignup ? run : worst,
   );
+  const totalShareClicks = RUNS.reduce((sum, run) => sum + run.sendToFriendClicks, 0);
 
   return (
     <section
@@ -131,6 +134,22 @@ export function MetaAdRunSimulation() {
         Core question tested: can users quickly decide "I can realistically do this trip" and
         "it is worth inviting a friend" when planning burden is removed?
       </p>
+
+      <h3>Primary trial stats</h3>
+      <div className="metrics-grid simulation-summary-grid">
+        <div className="metric card">
+          <span className="metric-value">{PAY_SLIDER_POPUP_SUBMISSIONS}</span>
+          <span className="metric-label">Pay slider popup submissions</span>
+        </div>
+        <div className="metric card">
+          <span className="metric-value">{formatMoney(PAY_SLIDER_POPUP_AVERAGE)}</span>
+          <span className="metric-label">Pay slider popup average</span>
+        </div>
+        <div className="metric card">
+          <span className="metric-value">{totalShareClicks}</span>
+          <span className="metric-label">Share-with-a-friend clicks (total)</span>
+        </div>
+      </div>
 
       <div className="table-scroll">
         <table className="metrics-table">
